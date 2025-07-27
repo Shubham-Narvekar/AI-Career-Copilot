@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { fetchSkillsCategories } from '../../store/skillsSlice';
 import AIAssessment from './AIAssessment';
-import LoadingSpinner from '../common/LoadingSpinner';
 
 const SkillsAssessment: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
     const dispatch = useDispatch<AppDispatch>();
-    const { categories, isLoading, error } = useSelector((state: RootState) => state.skills);
+    const { error } = useSelector((state: RootState) => state.skills);
 
     useEffect(() => {
         setIsVisible(true);

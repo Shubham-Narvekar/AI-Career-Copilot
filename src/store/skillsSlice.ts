@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { SkillCategory, AssessmentQuestion, AIGeneratedQuestion, SkillsAssessment, AssessmentResult, SkillGap, Skill } from '../types/skills';
+import { SkillCategory, AssessmentQuestion, AIGeneratedQuestion, SkillsAssessment, SkillGap, Skill } from '../types/skills';
 import { api } from '../services/api';
 import { toast } from 'react-toastify';
 

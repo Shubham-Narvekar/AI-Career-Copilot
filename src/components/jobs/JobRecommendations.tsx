@@ -7,10 +7,9 @@ import {
     applyToJob,
     setFilters,
     clearFilters,
-    setCurrentPage,
     toggleJobSaved
 } from '../../store/jobRolesSlice';
-import { JobRole, JobRecommendationFilters } from '../../types/jobRoles';
+import { JobRole } from '../../types/jobRoles';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../common/LoadingSpinner';
 
@@ -30,8 +29,6 @@ const JobRecommendations: React.FC = () => {
         isLoading,
         error,
         totalResults,
-        currentPage,
-        itemsPerPage
     } = useSelector((state: RootState) => state.jobRoles);
 
     useEffect(() => {
@@ -48,7 +45,7 @@ const JobRecommendations: React.FC = () => {
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
         };
-    }, [dispatch]);
+    }, [dispatch, filters]);
 
     const handleSaveJob = (jobId: string) => {
         dispatch(saveJob(jobId));

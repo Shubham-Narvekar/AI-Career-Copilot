@@ -11,7 +11,6 @@ const Profile: React.FC = () => {
     const [lastName, setLastName] = useState(user?.lastName || '');
     const [email, setEmail] = useState(user?.email || '');
     const [isLoading, setIsLoading] = useState(false);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -19,7 +18,7 @@ const Profile: React.FC = () => {
         setIsLoading(true);
         try {
             const name = `${firstName} ${lastName}`.trim();
-            const response = await api.put('/api/auth/profile', { name, email });
+            await api.put('/api/auth/profile', { name, email });
             toast.success('Profile updated successfully!');
             // Optionally update Redux state or refetch user info here
             navigate('/dashboard');

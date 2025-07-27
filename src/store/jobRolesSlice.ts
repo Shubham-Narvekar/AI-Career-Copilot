@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { JobRole, JobRecommendationState, JobRecommendationFilters, JobApplication } from '../types/jobRoles';
+import { JobRole, JobRecommendationState, JobRecommendationFilters } from '../types/jobRoles';
 import { api } from '../services/api';
 
 const initialState: JobRecommendationState = {

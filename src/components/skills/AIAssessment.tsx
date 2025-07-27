@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import {
@@ -9,19 +9,11 @@ import {
     setCurrentQuestion,
     clearAssessment
 } from '../../store/skillsSlice';
-import { AIGeneratedQuestion } from '../../types/skills';
 import LoadingSpinner from '../common/LoadingSpinner';
-
-interface Skill {
-    id: string;
-    name: string;
-    description?: string;
-    category?: string;
-}
 
 const AIAssessment: React.FC = () => {
     const dispatch = useDispatch();
-    const { categories, allSkills, skillCategories, currentAssessment, currentQuestionIndex, answers, isLoading, error } = useSelector(
+    const { categories, allSkills, currentAssessment, currentQuestionIndex, answers, isLoading, error } = useSelector(
         (state: RootState) => state.skills
     );
 
