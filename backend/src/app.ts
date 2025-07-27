@@ -6,7 +6,6 @@ import authRoutes from './routes/authRoutes';
 import skillRoutes from './routes/skillRoutes';
 import assessmentRoutes from './routes/assessmentRoutes';
 import learningPathRoutes from './routes/learningPathRoutes';
-import resumeRoutes from './routes/resumeRoutes';
 import jobRoleRoutes from './routes/jobRoleRoutes';
 
 dotenv.config();
@@ -25,7 +24,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/assessments', assessmentRoutes);
 app.use('/api/learning-paths', learningPathRoutes);
-app.use('/api/resumes', resumeRoutes);
 app.use('/api/job-roles', jobRoleRoutes);
 
 app.get('/', (req, res) => {

@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './authSlice';
 import skillsReducer from './skillsSlice';
 import learningPathReducer from './learningPathSlice';
-import resumeReducer from './resumeSlice';
 import jobRolesReducer from './jobRolesSlice';
 
 export const store = configureStore({
@@ -10,7 +9,6 @@ export const store = configureStore({
         auth: authReducer,
         skills: skillsReducer,
         learningPath: learningPathReducer,
-        resume: resumeReducer,
         jobRoles: jobRolesReducer,
     },
 });

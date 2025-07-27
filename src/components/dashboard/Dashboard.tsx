@@ -13,7 +13,6 @@ const Dashboard: React.FC = () => {
     const { user, isAuthenticated } = useSelector((state: RootState) => state.auth);
     const { categories, allSkills, assessmentResults } = useSelector((state: RootState) => state.skills);
     const { paths: learningPaths } = useSelector((state: RootState) => state.learningPath);
-    const { resumes } = useSelector((state: RootState) => state.resume);
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
@@ -52,13 +51,11 @@ const Dashboard: React.FC = () => {
         { id: 'overview', name: 'Overview', icon: '📊' },
         { id: 'skills', name: 'Skills', icon: '💻' },
         { id: 'learning', name: 'Learning Path', icon: '🚀' },
-        { id: 'resume', name: 'Resume Builder', icon: '📝', link: '/resume-builder' },
         { id: 'goals', name: 'Goals', icon: '🎯' },
     ];
 
     // Get latest activity from Redux
     const latestAssessment = assessmentResults?.completedAt || null;
-    const latestResume = resumes.length > 0 ? resumes[0].updatedAt : null;
     const latestLearningPath = learningPaths.length > 0 ? learningPaths[0].updatedAt : null;
 
     return (
@@ -159,7 +156,7 @@ const Dashboard: React.FC = () => {
                                     <div className="text-sm text-gray-600">Skill Categories</div>
                                 </div>
                                 <div className="text-center p-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg">
-                                    <div className="text-2xl font-bold text-orange-600 mb-1">{resumes.length}</div>
+                                    <div className="text-2xl font-bold text-orange-600 mb-1">0</div>
                                     <div className="text-sm text-gray-600">Resumes Created</div>
                                 </div>
                             </div>
@@ -170,33 +167,19 @@ const Dashboard: React.FC = () => {
                     <div className={`mb-8 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-xl border border-white/20">
                             <div className="flex space-x-1">
-                                {tabs.map((tab) =>
-                                    tab.link ? (
-                                        <Link
-                                            key={tab.id}
-                                            to={tab.link}
-                                            className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${activeTab === tab.id
-                                                ? 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-lg'
-                                                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                                                }`}
-                                        >
-                                            <span className="mr-2">{tab.icon}</span>
-                                            {tab.name}
-                                        </Link>
-                                    ) : (
-                                        <button
-                                            key={tab.id}
-                                            onClick={() => setActiveTab(tab.id)}
-                                            className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${activeTab === tab.id
-                                                ? 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-lg'
-                                                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                                                }`}
-                                        >
-                                            <span className="mr-2">{tab.icon}</span>
-                                            {tab.name}
-                                        </button>
-                                    )
-                                )}
+                                {tabs.map((tab) => (
+                                    <button
+                                        key={tab.id}
+                                        onClick={() => setActiveTab(tab.id)}
+                                        className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${activeTab === tab.id
+                                            ? 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-lg'
+                                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                                            }`}
+                                    >
+                                        <span className="mr-2">{tab.icon}</span>
+                                        {tab.name}
+                                    </button>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -220,17 +203,6 @@ const Dashboard: React.FC = () => {
                                                 </div>
                                             </div>
                                         )}
-                                        {latestResume && (
-                                            <div className="flex items-center space-x-3">
-                                                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                                    <span className="text-blue-600 text-sm">📄</span>
-                                                </div>
-                                                <div>
-                                                    <p className="text-sm font-medium text-gray-900">Updated Resume</p>
-                                                    <p className="text-xs text-gray-500">{new Date(latestResume).toLocaleString()}</p>
-                                                </div>
-                                            </div>
-                                        )}
                                         {latestLearningPath && (
                                             <div className="flex items-center space-x-3">
                                                 <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
@@ -242,7 +214,7 @@ const Dashboard: React.FC = () => {
                                                 </div>
                                             </div>
                                         )}
-                                        {!latestAssessment && !latestResume && !latestLearningPath && (
+                                        {!latestAssessment && !latestLearningPath && (
                                             <div className="text-gray-600">No recent activity yet.</div>
                                         )}
                                     </div>
@@ -362,43 +334,6 @@ const Dashboard: React.FC = () => {
                                         ))
                                     ) : (
                                         <div className="text-center py-8 text-gray-600">No learning paths found. Start one from the Learning Path page.</div>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-
-                        {activeTab === 'resume' && (
-                            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/20">
-                                <div className="flex items-center justify-between mb-6">
-                                    <h3 className="text-xl font-bold text-gray-900">Resume Builder</h3>
-                                    <Link
-                                        to="/resume-builder"
-                                        className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200"
-                                    >
-                                        Create Resume
-                                    </Link>
-                                </div>
-                                <div className="space-y-6">
-                                    <h4 className="text-lg font-semibold text-gray-900 mb-4">Your Resumes</h4>
-                                    {resumes.length > 0 ? (
-                                        resumes.map((resume) => (
-                                            <div key={resume.id} className="p-4 border border-gray-200 rounded-lg">
-                                                <div className="flex items-center justify-between">
-                                                    <div>
-                                                        <h5 className="font-semibold text-gray-900">{resume.title}</h5>
-                                                        <p className="text-sm text-gray-600">Last updated: {new Date(resume.updatedAt).toLocaleDateString()}</p>
-                                                    </div>
-                                                    <div className="flex items-center space-x-2">
-                                                        <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">{resume.sections && resume.sections.length > 0 ? 'Complete' : 'Draft'}</span>
-                                                        <Link to="/resume-builder" className="text-primary-600 text-sm font-medium hover:text-primary-700">
-                                                            Edit
-                                                        </Link>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <div className="text-center py-8 text-gray-600">No resumes found. Create one from the Resume Builder page.</div>
                                     )}
                                 </div>
                             </div>
