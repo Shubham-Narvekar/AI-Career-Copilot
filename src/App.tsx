@@ -11,6 +11,7 @@ import LearningPath from './components/learning/LearningPath';
 import JobRecommendations from './components/jobs/JobRecommendations';
 import PrivateRoute from './components/common/PrivateRoute';
 import GeminiTest from './components/skills/GeminiTest';
+import Profile from './components/auth/Profile';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -30,6 +31,7 @@ function App() {
             <Route path="/learning-path" element={<LearningPath />} />
             <Route path="/job-recommendations" element={<JobRecommendations />} />
               <Route path="/gemini-test" element={<GeminiTest />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
           </Routes>
           <ToastContainer position="top-right" autoClose={3000} />

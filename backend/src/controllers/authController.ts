@@ -43,4 +43,26 @@ export const login = async (req: Request, res: Response) => {
     } catch (err) {
         res.status(500).json({ message: 'Server error', error: err });
     }
+};
+
+// Update user profile
+export const updateProfile = async (req: any, res: any) => {
+    try {
+        const userId = req.user.id;
+        const { name, email } = req.body;
+        if (!name || !email) {
+            return res.status(400).json({ message: 'Name and email are required' });
+        }
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { name, email },
+            { new: true }
+        ).select('-password');
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json({ message: 'Profile updated successfully', user: updatedUser });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
 }; 

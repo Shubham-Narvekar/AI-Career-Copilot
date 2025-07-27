@@ -21,7 +21,12 @@ export class GeminiService {
   ): Promise<GeneratedQuestion[]> {
     try {
       const prompt = `
-Generate ${count} multiple-choice assessment questions for the skill "${skill}" in the category "${category}" at ${difficulty} difficulty level.
+You are an expert assessment creator. Generate ${count} unique, skill-specific multiple-choice questions for the skill "${skill}" in the category "${category}" at ${difficulty} difficulty level.
+
+Context:
+- The questions should be relevant to the real-world use of "${skill}" in "${category}".
+- Avoid generic or repeated questions. Each question must be different and directly related to the skill.
+- If the skill has subtopics or common tools, include them in the questions.
 
 Requirements:
 - Each question should test practical knowledge and understanding
@@ -45,14 +50,14 @@ Format the response as a JSON array with this structure:
 Only return the JSON array, no additional text.
 `;
 
+      console.log('[Gemini] Sending prompt:', prompt);
       const result = await this.model.generateContent(prompt);
       const response = await result.response;
       const text = response.text();
-      
+      console.log('[Gemini] Raw response (first 500 chars):', text.slice(0, 500));
       // Clean the response and parse JSON
       const cleanedText = text.replace(/```json\n?|\n?```/g, '').trim();
       const questions = JSON.parse(cleanedText);
-      
       return questions;
     } catch (error) {
       console.error('Error generating questions with Gemini:', error);

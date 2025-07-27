@@ -227,7 +227,7 @@ const Dashboard: React.FC = () => {
                                         <div className="p-4 bg-gradient-to-r from-primary-50 to-secondary-50 rounded-lg border border-primary-200">
                                             <h4 className="font-semibold text-gray-900 mb-2">Complete Your Profile</h4>
                                             <p className="text-sm text-gray-600 mb-3">Add your current position and experience to get better recommendations.</p>
-                                            <button className="text-primary-600 text-sm font-medium hover:text-primary-700">
+                                            <button className="text-primary-600 text-sm font-medium hover:text-primary-700" onClick={() => navigate('/profile')}>
                                                 Update Profile →
                                             </button>
                                         </div>
