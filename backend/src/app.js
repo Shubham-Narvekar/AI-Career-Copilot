@@ -11,7 +11,7 @@ const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const skillRoutes_1 = __importDefault(require("./routes/skillRoutes"));
 const assessmentRoutes_1 = __importDefault(require("./routes/assessmentRoutes"));
 const learningPathRoutes_1 = __importDefault(require("./routes/learningPathRoutes"));
-const resumeRoutes_1 = __importDefault(require("./routes/resumeRoutes"));
+
 const jobRoleRoutes_1 = __importDefault(require("./routes/jobRoleRoutes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -26,7 +26,7 @@ app.use('/api/auth', authRoutes_1.default);
 app.use('/api/skills', skillRoutes_1.default);
 app.use('/api/assessments', assessmentRoutes_1.default);
 app.use('/api/learning-paths', learningPathRoutes_1.default);
-app.use('/api/resumes', resumeRoutes_1.default);
+
 app.use('/api/job-roles', jobRoleRoutes_1.default);
 app.get('/', (req, res) => {
     res.send('Career Planner API is running');

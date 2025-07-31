@@ -49,12 +49,7 @@ const LandingPage: React.FC = () => {
             icon: "🚀",
             color: "from-orange-500 to-red-600"
         },
-        {
-            title: "Resume Builder",
-            description: "Create professional resumes with AI-powered suggestions",
-            icon: "📝",
-            color: "from-purple-500 to-pink-600"
-        }
+
     ];
 
     return (
@@ -201,6 +196,32 @@ const LandingPage: React.FC = () => {
                             <div className="text-4xl font-bold text-primary-600 mb-2 animate-float" style={{ animationDelay: '2s' }}>500+</div>
                             <div className="text-gray-600">Career Paths</div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Learning Path Generator Section */}
+            <section className="py-20 px-6 bg-gradient-to-r from-blue-50 to-purple-50 relative">
+                <div className="max-w-4xl mx-auto text-center">
+                    <h2 className="text-4xl font-bold text-gray-900 mb-6 animate-fade-in">
+                        AI-Powered Learning Paths
+                    </h2>
+                    <p className="text-xl text-gray-600 mb-8 animate-fade-in" style={{ animationDelay: '200ms' }}>
+                        Get personalized learning roadmaps for any skill you want to master
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link
+                            to="/register"
+                            className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition duration-200 animate-float"
+                        >
+                            🚀 Get Started Free
+                        </Link>
+                        <Link
+                            to="/login"
+                            className="inline-block bg-gradient-to-r from-green-600 to-teal-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition duration-200 animate-float"
+                        >
+                            Sign In
+                        </Link>
                     </div>
                 </div>
             </section>

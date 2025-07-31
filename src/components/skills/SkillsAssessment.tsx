@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../store';
 import { fetchSkillsCategories } from '../../store/skillsSlice';
 import AIAssessment from './AIAssessment';
@@ -45,6 +46,19 @@ const SkillsAssessment: React.FC = () => {
             <div className="absolute bottom-40 right-1/3 w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-20 animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
 
             <div className="relative z-10 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+                {/* Back Button */}
+                <div className="max-w-4xl mx-auto mb-6">
+                    <Link
+                        to="/dashboard"
+                        className={`inline-flex items-center text-gray-600 hover:text-gray-900 transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                    >
+                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Dashboard
+                    </Link>
+                </div>
+
                 {/* Header */}
                 <div className="max-w-4xl mx-auto mb-8">
                     <div className="text-center">

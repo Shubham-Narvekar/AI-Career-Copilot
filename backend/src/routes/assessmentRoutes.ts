@@ -31,8 +31,8 @@ router.post('/results', authenticateJWT, submitResult);
 router.get('/results/user/:userId', authenticateJWT, getResultsByUser);
 
 // Gemini AI-powered Assessment Generation
-router.post('/generate-questions', authenticateJWT, generateQuestions);
+router.post('/generate-questions', generateQuestions);
 router.post('/generate-recommendations', authenticateJWT, generateRecommendations);
-router.post('/generate-learning-path', authenticateJWT, generateLearningPath);
+router.post('/generate-learning-path', generateLearningPath);
 
 export default router; 

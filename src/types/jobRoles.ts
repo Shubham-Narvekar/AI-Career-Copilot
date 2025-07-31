@@ -52,7 +52,7 @@ export interface JobApplication {
     userId: string;
     status: 'applied' | 'reviewing' | 'interview' | 'offered' | 'rejected';
     appliedDate: string;
-    resumeId?: string;
+
     coverLetter?: string;
     notes?: string;
 } 

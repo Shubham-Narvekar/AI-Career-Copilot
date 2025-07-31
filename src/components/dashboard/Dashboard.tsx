@@ -155,10 +155,7 @@ const Dashboard: React.FC = () => {
                                     <div className="text-2xl font-bold text-purple-600 mb-1">{categories.length}</div>
                                     <div className="text-sm text-gray-600">Skill Categories</div>
                                 </div>
-                                <div className="text-center p-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg">
-                                    <div className="text-2xl font-bold text-orange-600 mb-1">0</div>
-                                    <div className="text-sm text-gray-600">Resumes Created</div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -362,19 +359,7 @@ const Dashboard: React.FC = () => {
                                         </div>
                                     </div>
 
-                                    <div className="p-4 border border-gray-200 rounded-lg">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <h4 className="font-semibold text-gray-900">Complete React Certification</h4>
-                                            <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">Q1 2025</span>
-                                        </div>
-                                        <p className="text-sm text-gray-600 mb-3">Earn React certification to validate skills and boost resume.</p>
-                                        <div className="flex justify-between items-center">
-                                            <div className="text-sm text-gray-500">Progress: 25%</div>
-                                            <button className="text-primary-600 text-sm font-medium hover:text-primary-700">
-                                                Update Progress
-                                            </button>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         )}
