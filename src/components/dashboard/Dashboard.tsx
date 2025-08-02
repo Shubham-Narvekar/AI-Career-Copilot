@@ -106,6 +106,12 @@ const Dashboard: React.FC = () => {
                                 >
                                     Job Recommendations
                                 </Link>
+                                <Link
+                                    to="/profile"
+                                    className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+                                >
+                                    Profile
+                                </Link>
                                 <button
                                     className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200"
                                     onClick={async () => {
@@ -136,7 +142,22 @@ const Dashboard: React.FC = () => {
                                     </p>
                                 </div>
                                 <div className="text-right">
-                                    <div className="text-2xl font-bold text-primary-600">75%</div>
+                                    <div className="text-2xl font-bold text-primary-600">
+                                        {(() => {
+                                            const profileFields = [
+                                                user?.firstName,
+                                                user?.lastName,
+                                                user?.email,
+                                                user?.currentPosition,
+                                                user?.experience,
+                                                user?.education,
+                                                user?.location,
+                                                user?.bio
+                                            ];
+                                            const filledFields = profileFields.filter(field => field && field.trim() !== '').length;
+                                            return Math.round((filledFields / profileFields.length) * 100);
+                                        })()}%
+                                    </div>
                                     <div className="text-sm text-gray-600">Profile Complete</div>
                                 </div>
                             </div>
@@ -155,7 +176,10 @@ const Dashboard: React.FC = () => {
                                     <div className="text-2xl font-bold text-purple-600 mb-1">{categories.length}</div>
                                     <div className="text-sm text-gray-600">Skill Categories</div>
                                 </div>
-
+                                <div className="text-center p-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg">
+                                    <div className="text-2xl font-bold text-orange-600 mb-1">{user?.goals?.length || 0}</div>
+                                    <div className="text-sm text-gray-600">Career Goals</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -224,9 +248,9 @@ const Dashboard: React.FC = () => {
                                         <div className="p-4 bg-gradient-to-r from-primary-50 to-secondary-50 rounded-lg border border-primary-200">
                                             <h4 className="font-semibold text-gray-900 mb-2">Complete Your Profile</h4>
                                             <p className="text-sm text-gray-600 mb-3">Add your current position and experience to get better recommendations.</p>
-                                            <button className="text-primary-600 text-sm font-medium hover:text-primary-700" onClick={() => navigate('/profile')}>
+                                            <Link to="/profile" className="text-primary-600 text-sm font-medium hover:text-primary-700">
                                                 Update Profile →
-                                            </button>
+                                            </Link>
                                         </div>
                                         <div className="p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-lg border border-green-200">
                                             <h4 className="font-semibold text-gray-900 mb-2">Start Learning Path</h4>
@@ -345,21 +369,34 @@ const Dashboard: React.FC = () => {
                                     </button>
                                 </div>
                                 <div className="space-y-4">
-                                    <div className="p-4 border border-gray-200 rounded-lg">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <h4 className="font-semibold text-gray-900">Land Frontend Developer Role</h4>
-                                            <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">Q4 2024</span>
-                                        </div>
-                                        <p className="text-sm text-gray-600 mb-3">Secure a frontend developer position at a tech company.</p>
-                                        <div className="flex justify-between items-center">
-                                            <div className="text-sm text-gray-500">Progress: 40%</div>
-                                            <button className="text-primary-600 text-sm font-medium hover:text-primary-700">
-                                                Update Progress
+                                    {user?.goals && user.goals.length > 0 ? (
+                                        user.goals.map((goal, index) => (
+                                            <div key={index} className="p-4 border border-gray-200 rounded-lg">
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <h4 className="font-semibold text-gray-900">{goal.title}</h4>
+                                                    <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
+                                                        {goal.targetDate}
+                                                    </span>
+                                                </div>
+                                                <p className="text-sm text-gray-600 mb-3">{goal.description}</p>
+                                                <div className="flex justify-between items-center">
+                                                    <div className="text-sm text-gray-500">Progress: {goal.progress}%</div>
+                                                    <button className="text-primary-600 text-sm font-medium hover:text-primary-700">
+                                                        Update Progress
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="text-center py-8">
+                                            <div className="text-4xl mb-4">🎯</div>
+                                            <h4 className="text-lg font-semibold text-gray-900 mb-2">No career goals set yet</h4>
+                                            <p className="text-gray-600 mb-4">Set your first career goal to start tracking your progress.</p>
+                                            <button className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+                                                Create Your First Goal
                                             </button>
                                         </div>
-                                    </div>
-
-                                    
+                                    )}
                                 </div>
                             </div>
                         )}

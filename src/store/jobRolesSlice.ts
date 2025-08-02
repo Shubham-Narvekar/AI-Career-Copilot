@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { JobRole, JobRecommendationState, JobRecommendationFilters } from '../types/jobRoles';
 import { api } from '../services/api';
+import { RootState } from './index';
 
 const initialState: JobRecommendationState = {
     recommendations: [],
@@ -23,12 +24,41 @@ const initialState: JobRecommendationState = {
 
 export const fetchJobRecommendations = createAsyncThunk(
     'jobRoles/fetchRecommendations',
-    async (filters: JobRecommendationFilters, { rejectWithValue }) => {
+    async (filters: JobRecommendationFilters, { rejectWithValue, getState }) => {
         try {
-            // For now, fetch all job roles from the backend
-            const jobs: JobRole[] = await api.get('/api/job-roles');
-            // Optionally, filter jobs on the frontend using filters
-            return jobs;
+            const state = getState() as RootState;
+            const userId = state.auth.user?.id;
+            
+            if (!userId) {
+                throw new Error('User not authenticated');
+            }
+
+            // Fetch AI-powered job recommendations
+            const jobs: JobRole[] = await api.get(`/api/job-roles/recommend/${userId}`);
+            
+            // Apply frontend filters if needed
+            let filteredJobs = jobs;
+            
+            if (filters.experience.length > 0) {
+                filteredJobs = filteredJobs.filter(job => 
+                    filters.experience.includes(job.experience)
+                );
+            }
+            
+            if (filters.jobType.length > 0) {
+                filteredJobs = filteredJobs.filter(job => 
+                    filters.jobType.includes(job.type)
+                );
+            }
+            
+            if (filters.salary.min > 0 || filters.salary.max < 200000) {
+                filteredJobs = filteredJobs.filter(job => {
+                    const avgSalary = (job.salary.min + job.salary.max) / 2;
+                    return avgSalary >= filters.salary.min && avgSalary <= filters.salary.max;
+                });
+            }
+            
+            return filteredJobs;
         } catch (error: any) {
             return rejectWithValue(error.message || 'Failed to fetch job recommendations');
         }

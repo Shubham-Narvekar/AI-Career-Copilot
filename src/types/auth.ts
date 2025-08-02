@@ -6,8 +6,15 @@ export interface User {
     avatar?: string;
     role: 'student' | 'professional';
     currentPosition?: string;
+    experience?: string;
+    education?: string;
+    location?: string;
+    bio?: string;
+    linkedin?: string;
+    github?: string;
+    website?: string;
     yearsOfExperience?: number;
-    education?: Education[];
+    educationDetails?: Education[];
     skills: Skill[];
     interests: string[];
     goals: CareerGoal[];

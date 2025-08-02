@@ -24,6 +24,14 @@ export const loginUser = createAsyncThunk(
                 firstName,
                 lastName,
                 role: data.user.role || 'professional',
+                currentPosition: data.user.currentPosition,
+                experience: data.user.experience,
+                education: data.user.education,
+                location: data.user.location,
+                bio: data.user.bio,
+                linkedin: data.user.linkedin,
+                github: data.user.github,
+                website: data.user.website,
                 skills: [],
                 interests: [],
                 goals: [],
@@ -54,6 +62,14 @@ export const registerUser = createAsyncThunk(
                 firstName,
                 lastName,
                 role: userData.role,
+                currentPosition: data.user.currentPosition,
+                experience: data.user.experience,
+                education: data.user.education,
+                location: data.user.location,
+                bio: data.user.bio,
+                linkedin: data.user.linkedin,
+                github: data.user.github,
+                website: data.user.website,
                 skills: [],
                 interests: [],
                 goals: [],
@@ -88,6 +104,11 @@ const authSlice = createSlice({
         setUser: (state, action: PayloadAction<User>) => {
             state.user = action.payload;
             state.isAuthenticated = true;
+        },
+        updateUser: (state, action: PayloadAction<Partial<User>>) => {
+            if (state.user) {
+                state.user = { ...state.user, ...action.payload };
+            }
         },
     },
     extraReducers: (builder) => {
@@ -137,5 +158,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { clearError, setUser } = authSlice.actions;
+export const { clearError, setUser, updateUser } = authSlice.actions;
 export default authSlice.reducer; 
