@@ -59,3 +59,71 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
+
+// Update user profile
+const updateProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.user.id;
+        const { 
+            name, 
+            email, 
+            currentPosition, 
+            experience, 
+            education, 
+            location, 
+            bio, 
+            linkedin, 
+            github, 
+            website 
+        } = req.body;
+        
+        if (!name || !email) {
+            return res.status(400).json({ message: 'Name and email are required' });
+        }
+        
+        const updateData = { name, email };
+        
+        // Add optional fields if provided
+        if (currentPosition !== undefined) updateData.currentPosition = currentPosition;
+        if (experience !== undefined) updateData.experience = experience;
+        if (education !== undefined) updateData.education = education;
+        if (location !== undefined) updateData.location = location;
+        if (bio !== undefined) updateData.bio = bio;
+        if (linkedin !== undefined) updateData.linkedin = linkedin;
+        if (github !== undefined) updateData.github = github;
+        if (website !== undefined) updateData.website = website;
+        
+        const updatedUser = yield User_1.default.findByIdAndUpdate(
+            userId,
+            updateData,
+            { new: true }
+        ).select('-password');
+        
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        
+        res.json({ message: 'Profile updated successfully', user: updatedUser });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+});
+
+// Get user profile
+const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.user.id;
+        const user = yield User_1.default.findById(userId).select('-password');
+        
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        
+        res.json({ user });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+});
+
+exports.updateProfile = updateProfile;
+exports.getProfile = getProfile;
